@@ -29,12 +29,11 @@ public class Articles {
     private List<Users>usersViaOrders;
 
     public Articles() {
+        this(0L, null, null, null);
     }
 
     public Articles(String topic, String content, Date data_issued) {
-        this.topic = topic;
-        this.content = content;
-        this.data_issued = Date.valueOf(LocalDate.now());
+        this(0L, topic, content, data_issued);
     }
 
     public Articles(long user_id, String topic, String content, Date data_issued) {

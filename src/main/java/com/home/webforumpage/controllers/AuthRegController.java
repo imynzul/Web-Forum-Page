@@ -33,7 +33,13 @@ public class AuthRegController {
     }
 
     @RequestMapping(value = "/reg", produces = "application/json; charset=utf-8")
-    public String registration(@RequestParam String email, @RequestParam String login, @RequestParam String password, @RequestParam String rPassword, Model model){
+    public String registration(
+            @RequestParam String email,
+            @RequestParam String login,
+            @RequestParam String password,
+            @RequestParam String rPassword,
+            Model model
+    ){
 
         AuthRegValidators authRegValidators = new AuthRegValidators();
         authRegValidators.registrationCheck(email, login, password, rPassword);
