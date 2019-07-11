@@ -18,7 +18,11 @@ import javax.servlet.http.HttpSession;
 public class AuthRegController {
 
     @RequestMapping(value = "/auth", produces = "application/json; charset=utf-8")
-    public String authorization(@RequestParam String login, @RequestParam String password, HttpSession session){
+    public String authorization(
+            @RequestParam String login,
+            @RequestParam String password,
+            HttpSession session)
+    {
 
         AuthRegValidators authRegValidators = new AuthRegValidators();
         authRegValidators.getAuth(login, password);

@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 public class LanguageController {
 
     @RequestMapping("/langselector")
-    public String languageSelector(@RequestParam String lang, HttpServletResponse response){
+    public String languageSelector(
+            @RequestParam String lang,
+            HttpServletResponse response
+    ){
+
         response.addCookie(new Cookie("language", lang));
 
         return "ок";

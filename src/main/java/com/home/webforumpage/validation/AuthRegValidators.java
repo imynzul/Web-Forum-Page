@@ -50,8 +50,6 @@ public class AuthRegValidators {
     }
 
 
-
-
     public void registrationCheck(String email, String login, String password, String rPassword){
         UsersDao usersDao = new UsersDao();
         UsersInfoDao usersInfoDao = new UsersInfoDao();

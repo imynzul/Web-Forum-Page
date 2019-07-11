@@ -48,7 +48,11 @@ public class MainController {
 
 
     @RequestMapping("/profile")
-    public String getUserArticles(@SessionAttribute String login, Model model){
+    public String getUserArticles(
+            @SessionAttribute String login,
+            Model model)
+    {
+
         UsersDao ud = new UsersDao();
         Users user = ud.getByLogin(login);
 
@@ -63,6 +67,7 @@ public class MainController {
 
     @RequestMapping("/admin")
     public ModelAndView getUsersList(ModelAndView modelAndView){
+
         UsersDao usersDao = new UsersDao();
 
         List<Users>allUsers = usersDao.getAll();
@@ -76,7 +81,12 @@ public class MainController {
 
 
     @RequestMapping("/article")
-    public String getArticleContent(@RequestParam String articleId, Model model, HttpSession session){
+    public String getArticleContent(
+            @RequestParam String articleId,
+            Model model,
+            HttpSession session)
+    {
+
         long id = Long.parseLong(articleId);
         ArticlesDao articlesDao = new ArticlesDao();
         Articles article = articlesDao.get(id);
@@ -95,7 +105,10 @@ public class MainController {
 
     @RequestMapping(value = "/savecomment", produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String saveComment(@RequestParam String comment, HttpSession session){
+    public String saveComment(
+            @RequestParam String comment,
+            HttpSession session)
+    {
 
         CommentsValidator commentsValidator = new CommentsValidator();
         commentsValidator.validation(comment);
@@ -123,7 +136,11 @@ public class MainController {
 
     @RequestMapping(value = "/savearticle", produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String saveArticle(@RequestParam String topic ,@RequestParam String article , HttpSession session){
+    public String saveArticle(
+            @RequestParam String topic,
+            @RequestParam String article,
+            HttpSession session)
+    {
 
         ArticleContentValidator contentValidator = new ArticleContentValidator();
         contentValidator.validation(topic, article);
