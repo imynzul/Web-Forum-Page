@@ -2,6 +2,9 @@ package com.home.webforumpage.exceptions;
 
 import javax.servlet.ServletException;
 
+/**
+ * Класс сохраняет инфо, связанную с работой валидаторов
+ * */
 public class ValidationException extends ServletException {
     private String type;
     private String backPage;

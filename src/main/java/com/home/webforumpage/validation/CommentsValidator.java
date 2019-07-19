@@ -2,6 +2,9 @@ package com.home.webforumpage.validation;
 
 import org.json.simple.JSONObject;
 
+/**
+ * Класс выполняет валидацию введенного комментария
+ * */
 public class CommentsValidator {
 
     private JSONObject jsonMessages;
@@ -13,6 +16,9 @@ public class CommentsValidator {
     }
 
 
+    /**
+     * Метод выполняет валидацию комментария
+     * */
     public void validation(String comment){
         if (comment.length() >= 1){
             jsonMessages.put("status", "verified");

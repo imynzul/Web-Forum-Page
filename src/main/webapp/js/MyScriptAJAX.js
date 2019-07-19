@@ -93,19 +93,15 @@ function postNewArticle() {
     });
 }
 
-/**
- * TODO
- * дописать возможность удаления статьи
- **/
-function deleteArticle() {
+function deleteArticle(formId) {
 
-    var id = $('#articleId').val();
+    var formData = $('#' + formId).serialize()
 
     $.ajax({
-        url: '',
-        data: id,
+        url: 'delete',
+        data: formData,
         success: function (data) {
-            document.location.reload();
+            document.location.reload(true);
         },
         error: function () {
             alert('ERROR_ERROR!!!');

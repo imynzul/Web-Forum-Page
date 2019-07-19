@@ -14,6 +14,11 @@ public class CommentsDao extends AbstractDao<Comments> {
         return comment;
     }
 
+    /**
+     * Метод возвращает все комментарии к одной статье
+     *
+     * @return List<Comments> commentsList
+     * */
     public List<Comments> getAll(){
         List<Comments> commentsList;
 

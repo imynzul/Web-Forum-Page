@@ -14,16 +14,24 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Контролер отвечает за авторизацию и регистрацию
+ * */
 @RestController
 public class AuthRegController {
 
+    /**
+     * Метод отвечает за авторизацию
+     * Принимает аргументы login, password и session
+     *
+     * @return getJsonMessages().toJSONString()
+     * */
     @RequestMapping(value = "/auth", produces = "application/json; charset=utf-8")
     public String authorization(
             @RequestParam String login,
             @RequestParam String password,
             HttpSession session)
     {
-
         AuthRegValidators authRegValidators = new AuthRegValidators();
         authRegValidators.getAuth(login, password);
 
@@ -36,15 +44,19 @@ public class AuthRegController {
         return authRegValidators.getJsonMessages().toJSONString();
     }
 
+    /**
+     * Метод отвечает за регистрацию
+     * Принимает аргументы email, login, password, rPassword
+     *
+     * @return getJsonMessages().toJSONString()
+     * */
     @RequestMapping(value = "/reg", produces = "application/json; charset=utf-8")
     public String registration(
             @RequestParam String email,
             @RequestParam String login,
             @RequestParam String password,
-            @RequestParam String rPassword,
-            Model model
+            @RequestParam String rPassword
     ){
-
         AuthRegValidators authRegValidators = new AuthRegValidators();
         authRegValidators.registrationCheck(email, login, password, rPassword);
 
@@ -63,6 +75,12 @@ public class AuthRegController {
         return authRegValidators.getJsonMessages().toJSONString();
     }
 
+    /**
+     * Метод отвечает за выход из системы
+     * Принимает аргументы session и request
+     *
+     * @return String объект
+     * */
     @RequestMapping("/out")
     public String out(HttpSession session, HttpServletRequest request) {
         session.invalidate();
@@ -76,5 +94,4 @@ public class AuthRegController {
         }
         return "ОК";
     }
-
 }

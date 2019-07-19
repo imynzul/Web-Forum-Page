@@ -23,16 +23,29 @@ import java.time.LocalDate;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Контролер, содержащий главные методы для работы
+ * */
 @Controller
 public class MainController {
 
 
+    /**
+     * Метод возвращает index-страницу
+     *
+     * @return String с адресом index-страницы
+     * */
     @RequestMapping({"/index", "/"})
     public String getIndex(){
         return "Index";
     }
 
 
+    /**
+     * Метод возвращает список всех статей и выполняет переход на страницу
+     *
+     * @return ModelAndView
+     * */
     @RequestMapping("/listOfArticles")
     public ModelAndView getArticles(ModelAndView modelAndView){
         ArticlesDao articlesDao = new ArticlesDao();
@@ -47,12 +60,17 @@ public class MainController {
     }
 
 
+    /**
+     * Метод возвращает список статей авторизованного пользователя и
+     * выполняет переход на страницу его профиля
+     *
+     * @return String содержащий адрес страницы профиля
+     * */
     @RequestMapping("/profile")
     public String getUserArticles(
             @SessionAttribute String login,
             Model model)
     {
-
         UsersDao ud = new UsersDao();
         Users user = ud.getByLogin(login);
 
@@ -65,6 +83,11 @@ public class MainController {
     }
 
 
+    /**
+     * Метод выполняет переходт на страницу админа и собирает список всех пользователей
+     *
+     * @return ModelAndView
+     * */
     @RequestMapping("/admin")
     public ModelAndView getUsersList(ModelAndView modelAndView){
 
@@ -80,13 +103,18 @@ public class MainController {
     }
 
 
+    /**
+     * Метод достает содержимое статьи и выполняет переход на страницу с данной статьей,
+     * содержащюю контент и комментарии к данной статье
+     *
+     * @return String c именем страницы перехода
+     * */
     @RequestMapping("/article")
     public String getArticleContent(
             @RequestParam String articleId,
             Model model,
             HttpSession session)
     {
-
         long id = Long.parseLong(articleId);
         ArticlesDao articlesDao = new ArticlesDao();
         Articles article = articlesDao.get(id);
@@ -103,13 +131,17 @@ public class MainController {
     }
 
 
+    /**
+     * Метод сохраняет новый комментарий к статье
+     *
+     * @return String с результатами валидации содержимого комментария
+     * */
     @RequestMapping(value = "/savecomment", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String saveComment(
             @RequestParam String comment,
             HttpSession session)
     {
-
         CommentsValidator commentsValidator = new CommentsValidator();
         commentsValidator.validation(comment);
 
@@ -130,10 +162,15 @@ public class MainController {
             commentsDao.closeCurrentSession();
             usersDao.closeCurrentSession();
         }
-        return commentsValidator.getJsonMessages().toJSONString(); //при возникновении ошибки в валидации, не выводится нужный текст об ошибке
+        return commentsValidator.getJsonMessages().toJSONString();
     }
 
 
+    /**
+     * Метод сохраняет новую статью
+     *
+     * @return String строку с результатми работы валидатора
+     * */
     @RequestMapping(value = "/savearticle", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String saveArticle(
@@ -141,7 +178,6 @@ public class MainController {
             @RequestParam String article,
             HttpSession session)
     {
-
         ArticleContentValidator contentValidator = new ArticleContentValidator();
         contentValidator.validation(topic, article);
 
@@ -172,17 +208,23 @@ public class MainController {
 
 
     /**
-     * TODO
-     * дописать возможность удаления статьи
-     **/
-    public String deleteArticle(){
-        return "ok";
-    }
-
-
-    @RequestMapping("/testController")
+     * Метод удаялет статью из БД
+     *
+     * @return String со статусом операции
+     * */
+    @RequestMapping(value = "/delete", produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String testController(){
-        return "Hello AJAX!!";
+    public String deleteArticle(@RequestParam long id)
+    {
+        ArticlesDao articlesDao = new ArticlesDao();
+        Articles article = articlesDao.get(id);
+        articlesDao.delete(article);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status", "deleted");
+
+        articlesDao.closeCurrentSession();
+
+        return jsonObject.toJSONString();
     }
 }

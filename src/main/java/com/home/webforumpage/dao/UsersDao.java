@@ -1,7 +1,6 @@
 package com.home.webforumpage.dao;
 
 import com.home.webforumpage.entity.Users;
-import com.home.webforumpage.exceptions.DAOException;
 import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
@@ -10,7 +9,7 @@ import java.util.List;
 public class UsersDao extends AbstractDao<Users> {
 
 
-    @Override
+   @Override
    public Users get(long id){
        Users user = session.get(Users.class, id);
 
@@ -18,6 +17,11 @@ public class UsersDao extends AbstractDao<Users> {
    }
 
 
+   /**
+    * Метод возвращает пользователя по его логину
+    *
+    * @return Users user
+    * */
    public Users getByLogin(String login){
        Users user;
        try{
@@ -25,16 +29,17 @@ public class UsersDao extends AbstractDao<Users> {
            query.setParameter("loginValue", login);
            user = query.getSingleResult();
        } catch (NoResultException e){
-           DAOException daoException = new DAOException(
-                   "[Thread = " + Thread.currentThread().getName() +
-                   "] tried to get User by Incorrect Login = " + login + ".", e);
-           ExcLOGGER.error(daoException.getMessage(), daoException.getCause());
            user = null;
        }
        return user;
     }
 
 
+    /**
+     * Метод возвращает список всех пользователей
+     *
+     * @return List<Users> userList
+     * */
    public List<Users> getAll(){
        Query<Users> query = session.createQuery("FROM Users", Users.class);
        List<Users> usersList = query.list();

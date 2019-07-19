@@ -6,6 +6,9 @@ import com.home.webforumpage.entity.Users;
 import com.home.webforumpage.entity.UsersInfo;
 import org.json.simple.JSONObject;
 
+/**
+ * Класс выполняет валидацию при авторизации и регистрации
+ * */
 public class AuthRegValidators {
 
     private static final String EMAIL_PATTERN = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
@@ -20,6 +23,9 @@ public class AuthRegValidators {
         valid = true;
     }
 
+    /**
+     * Метод выполняет валидацию при авторизации пользователя
+     * */
     public void getAuth(String login, String password){
         UsersDao usersDao = new UsersDao();
 
@@ -50,6 +56,9 @@ public class AuthRegValidators {
     }
 
 
+    /**
+     * Метод выполняет валидацию при регистрации пользователя
+     * */
     public void registrationCheck(String email, String login, String password, String rPassword){
         UsersDao usersDao = new UsersDao();
         UsersInfoDao usersInfoDao = new UsersInfoDao();

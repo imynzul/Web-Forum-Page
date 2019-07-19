@@ -16,6 +16,11 @@ public class UsersInfoDao extends AbstractDao<UsersInfo>{
     }
 
 
+    /**
+     * Метод возвращает инфо о пользователе по его email
+     *
+     * @return UsersInfo userInfo
+     * */
     public UsersInfo getByEmail(String email){
         UsersInfo userInfo;
         try{
@@ -23,16 +28,17 @@ public class UsersInfoDao extends AbstractDao<UsersInfo>{
             query.setParameter("emailValue", email);
             userInfo = query.getSingleResult();
         } catch (NoResultException e) {
-            DAOException daoException = new DAOException(
-                    "[Thread = " + Thread.currentThread().getName() +
-                    "] tried to get UserInfo by Incorrect Email = " + email + ".", e);
-            ExcLOGGER.error(daoException.getMessage(), daoException.getCause());
             userInfo = null;
         }
         return userInfo;
     }
 
 
+    /**
+     * Метод возвращает всю информацию о пользователях
+     *
+     * @return List<UsersInfo> usersInfoList
+     * */
     public List<UsersInfo> getAll(){
         Query<UsersInfo> query = session.createQuery("FROM UsersInfo", UsersInfo.class);
         List<UsersInfo> usersInfoList = query.list();

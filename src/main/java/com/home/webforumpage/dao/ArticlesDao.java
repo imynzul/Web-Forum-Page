@@ -15,6 +15,11 @@ public class ArticlesDao extends AbstractDao<Articles> {
         return article;
     }
 
+    /**
+     * Метод получает статью по id пользователя
+     *
+     * @return Article со статьей
+     * */
     public List<Articles> getByUserId(long userId){
         List<Articles> article;
         try{
@@ -22,15 +27,16 @@ public class ArticlesDao extends AbstractDao<Articles> {
             query.setParameter("userId", userId);
             article = query.list();
         } catch (NoResultException e) {
-            DAOException daoException = new DAOException(
-                    "[Thread = " + Thread.currentThread().getName() +
-                    "] tried to get List of Articles by Incorrect UserId = " + userId + ".", e);
-            ExcLOGGER.error(daoException.getMessage(), daoException.getCause());
             article = null;
         }
         return article;
     }
 
+    /**
+     * Метод получает все статьи в БД
+     *
+     * @return List<Articles>articleList
+     * */
     public List<Articles> getAll(){
         List<Articles>articleList;
 

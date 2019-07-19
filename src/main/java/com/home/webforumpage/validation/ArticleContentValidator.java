@@ -2,6 +2,9 @@ package com.home.webforumpage.validation;
 
 import org.json.simple.JSONObject;
 
+/**
+ * Класс валидатор, выполняет валидацию содержимого новой статьи
+ * */
 public class ArticleContentValidator {
     private JSONObject jsonMessages;
     private boolean valid;
@@ -12,6 +15,9 @@ public class ArticleContentValidator {
     }
 
 
+    /**
+     * Метод выполняет валидацию содержимого статьи
+     * */
     public void validation(String topic, String article){
         if (topic.length() < 1){
             jsonMessages.put("topic", "Write the topic...");

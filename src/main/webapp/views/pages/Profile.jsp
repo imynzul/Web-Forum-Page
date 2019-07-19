@@ -30,15 +30,22 @@
                 </thead>
                 <tbody>
                 <jstl:forEach var="articles" items="${articleList}">
-                    <tr>
-                        <td> <a href="article"><a href="article?articleId=${articles.getId()}"> ${articles.getTopic()} </a>  </a></td>
-                        <td> ${articles.getContent()} </td>
-                        <td> ${articles.getData_issued()} </td>
-                        <td><button type="button" class="btn btn-dark" onclick="deleteArticle()" value=" ${articles.getId()} " id="articleId">Delete</button></td> //кнопка удаления статьи
-                    </tr>
+                    <form id="articleInfo-${articles.getId()}">
+                        <tr>
+                            <input type="hidden" name="id" value="${articles.getId()}"/>
+                            <td name="topic"> <a href="article?articleId=${articles.getId()}"> ${articles.getTopic()} </a></td>
+                            <td name="content"> ${articles.getContent()} </td>
+                            <td> ${articles.getData_issued()} </td>
+                            <td><button type="button" class="btn btn-dark"
+                                        onclick="deleteArticle('articleInfo-${articles.getId()}')">Delete</button></td>
+                        </tr>
+                    </form>
+
+
+
+
                 </jstl:forEach>
                 </tbody>
-                <button type="button" class="btn btn-warning float-right">Delete</button>
             </table>
         </div>
     </div>
