@@ -24,7 +24,6 @@
 
 
 
-
   <servlet>
     <servlet-name>LoginJSP</servlet-name>
     <jsp-file>/views/pages/Login.jsp</jsp-file>
@@ -64,16 +63,6 @@
     <servlet-name>TestJSP</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
-
-
-  <filter>
-    <filter-name>testFilter</filter-name>
-    <filter-class>com.home.webforumpage.filters.testFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>testFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
 
 
 
